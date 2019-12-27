@@ -20,6 +20,12 @@ class GridLayout(override val name: String, init: GridLayout.() -> Unit) : Layou
 
     override var layoutType = BuiltInLayouts.kGrid as LayoutType
 
+    override fun construct(c: ShuffleboardContainer) {
+        properties["Number of rows"] = rows ?: (components.map { it.rect?.y ?: 0 }.max()?.plus(1)) ?: 3
+        properties["Number of columns"] = cols ?: (components.map { it.rect?.x ?: 0 }.max()?.plus(1)) ?: 3
+        super.construct(c)
+    }
+
     override fun update() {
         components.forEach(Component::update)
     }

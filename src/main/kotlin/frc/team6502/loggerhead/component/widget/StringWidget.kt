@@ -4,12 +4,12 @@ import edu.wpi.first.networktables.NetworkTableEntry
 import edu.wpi.first.wpilibj.shuffleboard.*
 
 class StringWidget(val name: String, private val supplier: () -> String, private val consumer: (String) -> Unit = {}, init: StringWidget.() -> Unit = {}) : Widget() {
-    override var type: WidgetType = BuiltInWidgets.kTextView
 
     private var value: String = ""
 
     init {
         init()
+        widgetType = BuiltInWidgets.kTextView
     }
 
     override lateinit var entry: NetworkTableEntry

@@ -22,11 +22,6 @@ abstract class Layout: Component() {
 
         properties["Label position"] = labelPosition.name
 
-        if(this is GridLayout) {
-            properties["Number of rows"] = rows ?: (components.map { it.rect?.y ?: 0 }.max()?.plus(1)) ?: 3
-            properties["Number of columns"] = cols ?: (components.map { it.rect?.x ?: 0 }.max()?.plus(1)) ?: 3
-        }
-
         var layout = c.getLayout(name, layoutType).withProperties(properties)
         if(rect != null) layout = layout.withPosition(rect!!.x, rect!!.y).withSize(rect!!.w, rect!!.h)
         components.forEach { it.construct(layout) }
