@@ -6,23 +6,20 @@ import frc.team6502.loggerhead.component.Component
 
 abstract class Widget: Component() {
 
-    protected lateinit var widgetType: WidgetType
+    protected var widgetType: WidgetType? = null
     abstract var entry: NetworkTableEntry
 
     fun configure(w: SimpleWidget): SimpleWidget {
-        println(properties)
         var widget = w.withWidget(widgetType).withProperties(properties)
         if(rect != null) widget = widget.withPosition(rect!!.x, rect!!.y).withSize(rect!!.w, rect!!.h)
         return widget
     }
 
     fun configure(w: ComplexWidget): ComplexWidget {
-        println(properties)
-        var widget = w.withWidget(widgetType).withProperties(properties)
+        var widget = w.withProperties(properties)
+        if(widgetType != null) widget = widget.withWidget(widgetType)
         if(rect != null) widget = widget.withPosition(rect!!.x, rect!!.y).withSize(rect!!.w, rect!!.h)
         return widget
     }
-
-
 
 }
