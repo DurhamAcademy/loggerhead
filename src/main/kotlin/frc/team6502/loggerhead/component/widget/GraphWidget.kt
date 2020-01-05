@@ -10,6 +10,7 @@ class GraphWidget(val name: String, private val supplier: () -> Array<Number>, i
     var autoBounds = true
     var upperBound: Number = 1
     var lowerBound: Number = -1
+    var jitter: Double = 0.00001
 
     init {
         init()
@@ -32,6 +33,7 @@ class GraphWidget(val name: String, private val supplier: () -> Array<Number>, i
     override fun update() {
         val current = entry.getNumberArray(value)
         val v = supplier()
-        if(!current.contentEquals(v)) entry.setNumberArray(v)
+        val currentJitter = Math.random() * jitter
+        if(jitter > 0) entry.setDoubleArray(v.map { it.toDouble() + currentJitter.toDouble() }.toDoubleArray())
     }
 }
